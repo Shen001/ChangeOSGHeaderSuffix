@@ -54,11 +54,20 @@ void ModifierCmakeLists(const std::string &filepath, std::string &outStr)
 			start = false;
 		}
 		else if (start)
-		{//包含.h后缀
+		{	//包含.h后缀
 			//小括号与.h在同一行
-			if (strLine.find('.') != -1)
+			if (strLine.length() == 0)
+				outStr += newline;
+			else
 			{
-				outStr += line + gAppendHeader + newline;
+				if (strLine.find('.') != -1)
+				{
+					if (strLine.find(')') != -1)
+						start = false;
+					outStr += line + newline;
+				}
+				else
+					outStr += line + gAppendHeader + newline;
 			}
 		}
 		else
